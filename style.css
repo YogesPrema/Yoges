@@ -1,0 +1,28 @@
+
+    .container {
+   display:inline-block;
+      width: 200px;
+      height: 300px;
+      border: 2px solid #ccc;
+      padding: 10px;
+      color: white;
+      text-align: center;
+      background-color: black;
+    
+    }
+
+    .item {
+      display: inline-block;
+      width: 80px;
+      height: 80px;
+      background-color:black;
+      border: 1px solid #ccc;
+      margin: 5px;
+      padding: 5px;
+      cursor: move;
+      background-color: aquamarine;
+    }
+
+    .item.dragging {
+      opacity: 0.5;
+    }
