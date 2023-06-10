@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .container {
+      display: inline-block;
+      width: 200px;
+      height: 300px;
+      border: 2px solid #ccc;
+      padding: 10px;
+    }
+
+    .item {
+      display: inline-block;
+      width: 80px;
+      height: 80px;
+      background-color: #f1f1f1;
+      border: 1px solid #ccc;
+      margin: 5px;
+      padding: 5px;
+      cursor: move;
+    }
+
+    .item.dragging {
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="container1">
+    <div class="item" draggable="true" ondragstart="drag(event)">Item 1</div>
+    <div class="item" draggable="true" ondragstart="drag(event)">Item 2</div>
+    <div class="item" draggable="true" ondragstart="drag(event)">Item 3</div>
+  </div>
+  <div class="container" id="container2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <button onclick="reset()">Reset</button>
+
+  <script>
+    function allowDrop(event) {
+      event.preventDefault();
+    }
+
+    function drag(event) {
+      event.dataTransfer.setData("text", event.target.id);
+      event.target.classList.add("dragging");
+    }
+
+    function drop(event) {
+      event.preventDefault();
+      var data = event.dataTransfer.getData("text");
+      var item = document.getElementById(data);
+      event.target.appendChild(item);
+      item.classList.remove("dragging");
+      showMessage("Item dropped successfully!");
+    }
+
+    function showMessage(message) {
+      var messageContainer = document.createElement("div");
+      messageContainer.textContent = message;
+      document.body.appendChild(messageContainer);
+      setTimeout(function () {
+        messageContainer.remove();
+      }, 2000);
+    }
+
+    function reset() {
+      var container1 = document.getElementById("container1");
+      var container2 = document.getElementById("container2");
+      container2.innerHTML = "";
+      container1.innerHTML = '<div class="item" draggable="true" ondragstart="drag(event)">Item 1</div>' +
+        '<div class="item" draggable="true" ondragstart="drag(event)">Item 2</div>' +
+        '<div class="item" draggable="true" ondragstart="drag(event)">Item 3</div>';
+    }
+  </script>
+</body>
+</html>
